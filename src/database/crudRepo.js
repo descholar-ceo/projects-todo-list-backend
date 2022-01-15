@@ -51,8 +51,8 @@ class CrudRepository {
      * @param {object} whereCondition
      * @param {integer} offset
      * @param {integer} limit
-     * @returns {object} allAccommodation
-     * @description This function getAllAccommodations
+     * @returns {object} all
+     * @description This function getAlls
      */
   getAndCountAllIncludeAssociation = async (whereCondition, offset, limit) => {
     const inclusion = this.associateTable.map(table => ({ model: table }));
@@ -71,41 +71,6 @@ class CrudRepository {
         });
         return result;
     }
-    
-    /**
-   * @param {object} whereCondition
-   * @returns {object} foundRes
-   * @method
-   * @description it gets whereCondition which should be an object containing the attribute of the
-   * table and its value, example if you want to get by id, ypu will pass the
-   * whereCondition as this {id:2} then it returns the object containing a retrieved data
-   *  with that id
-   */
-  getOneBy = async (whereCondition) => {
-    const foundRes = await this.model.findOne({ where: whereCondition });
-    return foundRes;
-  }
-
-  /**
-   * @param {string} value
-   * @param {boolean} status
-   * @returns {object} returns an updated user
-   */
-  updateIsVerifiedOrUpdateNotification = async (value, status) => {
-    let update;
-    if (isNaN(value) && value.includes('@')) {
-      update = await this.model.update(
-        { isVerified: true },
-        { where: { email: value } }
-      );
-    } else {
-      update = await this.model.update(
-        { emailNotification: !status },
-        { where: { id: value } }
-      );
-    }
-    return update;
-  }
 
   /**
    * @param {object} dataToUpdate

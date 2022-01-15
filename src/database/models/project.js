@@ -7,7 +7,11 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true
   });
   Project.associate = function (models) {
-    // associations can be defined here
+    Project.hasMany(models.Todo, {
+      foreignKey: 'projectId',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
+    });
   };
   return Project;
 };

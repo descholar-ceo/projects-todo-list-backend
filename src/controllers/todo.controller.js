@@ -1,30 +1,30 @@
-import ProjectService from '../services/project.service';
+import TodoService from '../services/todo.service';
 import { RESOURCE_RETRIEVED, RESOURCE_CREATED, RESOURCE_NOT_FOUND, RESOURCE_UPDATED, RESOURCE_FAILED_TO_UPDATE, RESOURCE_WAS_DELETED, RESOURCE_FAILED_TO_DELETED } from '../utils/custom-messages.util';
 import { getOffsetAndLimit } from '../utils/prepare-pagination.util';
 import { sendResponse } from '../utils/response.util';
 import { CREATED, NOT_FOUND, OK } from '../utils/status-codes.util';
 
 /**
- * @description this class ProjectController deals with all of the methods 
- * regarding with project 
+ * @description this class TodoController deals with all of the methods 
+ * regarding with todo 
  */
-export default class ProjectController {
+export default class TodoController {
     /**
      * @constructor
      */
     constructor() {
-        this.projectService = new ProjectService();
+        this.todoService = new TodoService();
     }
 
     /**
      * @param {object} req
      * @param {object} res
-     * @returns {object} newSavedProject
-     * @description sends response containing the saved project
+     * @returns {object} newSavedtodo
+     * @description sends response containing the saved todo to project
      */
-    saveProject = async (req, res) => {
-        const projectData = req.body;
-        const { dataValues } = await this.projectService.saveAll(projectData);
+    saveTodo = async (req, res) => {
+        const todoData = req.body;
+        const { dataValues } = await this.todoService.saveAll(todoData);
         sendResponse(res, CREATED, RESOURCE_CREATED, dataValues);
     }
 
@@ -32,16 +32,16 @@ export default class ProjectController {
      * @param {object} req
      * @param {object} res
      * @returns {object} sends response to user
-     * @description it sends found projects
+     * @description it sends found todos
      */
-     getProjects = async (req, res) => {
-        const { name, page, limit } = req.query;
+     getTodos = async (req, res) => {
+        const { title, page, limit } = req.query;
         const { offset, gottenLimit } = getOffsetAndLimit(page, limit);
-        const foundProjects = await this.projectService
-            .getAndCountAllIncludeAssociation({ name }, offset, gottenLimit);
+        const foundTodos = await this.todoService
+            .getAndCountAllIncludeAssociation({ title }, offset, gottenLimit);
 
-        if (foundProjects.count !== 0) {
-            const { rows } = foundProjects;
+        if (foundTodos.count !== 0) {
+            const { rows } = foundTodos;
             if (rows.length !== 0) {
                 sendResponse(res, OK, RESOURCE_RETRIEVED, rows);
             } else {
@@ -56,15 +56,15 @@ export default class ProjectController {
      * @param {object} req
      * @param {object} res
      * @returns {object} sends response to user
-     * @description it sends updated project
+     * @description it sends updated todo
      */
-     updateProject = async (req, res) => {
+     updateTodo = async (req, res) => {
         const { id } = req.params;
-        const projectDataToUpdate = req.body;
-        const updatedProject = await this.projectService.updateBy(projectDataToUpdate, { id });
+        const todoDataToUpdate = req.body;
+        const updatedTodo = await this.todoService.updateBy(todoDataToUpdate, { id });
         
-        if (updatedProject[0]) {
-            const { dataValues } = updatedProject[1][0];
+        if (updatedTodo[0]) {
+            const { dataValues } = updatedTodo[1][0];
             sendResponse(res, OK, RESOURCE_UPDATED, dataValues);
         } else {
             sendResponse(res, NOT_FOUND, RESOURCE_FAILED_TO_UPDATE);
@@ -77,10 +77,10 @@ export default class ProjectController {
      * @param {*} res
      * @returns {*} response
      */
-    deleteProject = async (req, res) => {
+    deleteTodo = async (req, res) => {
         const { id } = req.params;
-        const deletedProject = await this.projectService.temporaryDelete({ id });
-        if (deletedProject) {
+        const deletedTodo = await this.todoService.temporaryDelete({ id });
+        if (deletedTodo) {
             sendResponse(res, OK, RESOURCE_WAS_DELETED);
         } else {
             sendResponse(res, NOT_FOUND, RESOURCE_FAILED_TO_DELETED);

@@ -5,7 +5,7 @@ import ProjectModel from '../../src/database/models/project';
 
 chai.use(sinonChai);
 
-describe('src/models/User', () => {
+describe('model Project should be defined', () => {
   const Project = ProjectModel(sequelize, dataTypes);
   const projects = new Project();
 

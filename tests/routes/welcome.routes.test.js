@@ -2,15 +2,13 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../src/index';
-import ProjectService from '../../src/services/project.service';
-import { RESOURCE_CREATED, RESOURCE_NOT_FOUND, RESOURCE_RETRIEVED, RESOURCE_UPDATED, RESOURCE_WAS_DELETED, WELCOME_MESSAGE } from '../../src/utils/custom-messages.util';
-import { CREATED, NOT_FOUND, OK } from '../../src/utils/status-codes.util';
-import { createProject1ValidData, createProject2ValidData, createProject3ValidData, createProject4ValidData, createProject5ValidData, updateProject2ValidData } from '../mock/project.mock';
+import { RESOURCE_NOT_FOUND, WELCOME_MESSAGE } from '../../src/utils/custom-messages.util';
+import { NOT_FOUND, OK } from '../../src/utils/status-codes.util';
 
 chai.use(chaiHttp);
 chai.should();
 
-describe('User sign up', () => {
+describe('Welcome route', () => {
   it('Should return 200 if we visit a welcome page', (done) => {
     chai
       .request(server)
