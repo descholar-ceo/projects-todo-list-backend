@@ -42,11 +42,7 @@ export default class ProjectController {
 
         if (foundProjects.count !== 0) {
             const { rows } = foundProjects;
-            if (rows.length !== 0) {
-                sendResponse(res, OK, RESOURCE_RETRIEVED, rows);
-            } else {
-                sendResponse(res, NOT_FOUND, RESOURCE_NOT_FOUND);
-            }
+            sendResponse(res, OK, RESOURCE_RETRIEVED, rows);
         } else {
             sendResponse(res, NOT_FOUND, RESOURCE_NOT_FOUND);
         }

@@ -20,7 +20,7 @@ describe('Welcome route', () => {
         done();
       });
   });
-  it('Should return 200 if we visit a welcome page', (done) => {
+  it('Should return 404 if we visit a non-existant api', (done) => {
     chai
       .request(server)
       .get('/notfoundroute')

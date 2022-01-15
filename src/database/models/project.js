@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true,
     timestamps: true
   });
-  Project.associate = function (models) {
+  Project.associate = (models) => {
     Project.hasMany(models.Todo, {
       foreignKey: 'projectId',
       onDelete: 'CASCADE',
