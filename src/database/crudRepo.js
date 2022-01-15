@@ -44,10 +44,8 @@ class CrudRepository {
      * it returns the saved data
      */
   saveAll = async (inputData) => {
-    const savedData = await this.model.create(inputData);
-    return savedData;
+    return await this.model.create(inputData, { returning: true });
   }
-    
     
     /**
      * @param {object} whereCondition
