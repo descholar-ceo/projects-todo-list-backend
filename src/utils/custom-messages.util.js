@@ -1,3 +1,4 @@
+export const WELCOME_MESSAGE = 'Welcome to Projects todo list backend api';
 export const RESOURCE_NOT_FOUND = 'The requested resource was not found';
 export const RESOURCE_CREATED = 'The is created successfully!';
 export const RESOURCE_RETRIEVED = 'Resource retrieved successfully!';

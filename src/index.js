@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import allRoutes from './routes/index';
 import { NOT_FOUND } from './utils/status-codes.util';
-import { ENDPOINT_NOT_FOUND } from './utils/custom-messages.util';
+import { RESOURCE_NOT_FOUND } from './utils/custom-messages.util';
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ app.use(allRoutes);
 
 app.use((req, res, next) => {
   res.status(NOT_FOUND).json({
-    message: ENDPOINT_NOT_FOUND,
+    message: RESOURCE_NOT_FOUND,
   });
 });
 

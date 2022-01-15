@@ -41,6 +41,7 @@ export default class ProjectController {
             .getAndCountAllIncludeAssociation({ name }, offset, gottenLimit);
 
         if (foundProjects.count !== 0) {
+            console.log({ foundProjects: foundProjects.rows });
             const { rows } = foundProjects;
             if (rows.length !== 0) {
                 sendResponse(res, OK, RESOURCE_RETRIEVED, rows);
