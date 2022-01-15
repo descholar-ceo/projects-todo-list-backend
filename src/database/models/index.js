@@ -7,7 +7,7 @@ dotenv.config();
 
 const basename = _basename(__filename);
 const env = process.env.NODE_ENV;
-const config = require('../config.js')[env];
+const config = require('../config')[env];
 
 const db = {};
 
@@ -22,7 +22,6 @@ readdirSync(__dirname)
     const model = sequelize.import(join(__dirname, file));
     db[model.name] = model;
   });
-
 
 Object.keys(db).forEach((modelName) => {
   db[modelName].associate(db); 

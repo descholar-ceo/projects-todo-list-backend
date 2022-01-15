@@ -1,15 +1,15 @@
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import { sequelize, dataTypes, checkPropertyExists } from 'sequelize-test-helpers';
-import ProjectModel from '../../src/database/models/project';
+import TodoModel from '../../src/database/models/todo';
 
 chai.use(sinonChai);
 
 describe('model Project should be defined', () => {
-  const Project = ProjectModel(sequelize, dataTypes);
-  const projects = new Project();
+  const Todo = TodoModel(sequelize, dataTypes);
+  const todos = new Todo();
 
   context('properties', () => {
-    ['name'].forEach(checkPropertyExists(projects));
+    ['title', 'description', 'dueDate', 'priority', 'completed', 'projectId'].forEach(checkPropertyExists(todos));
   });
 });

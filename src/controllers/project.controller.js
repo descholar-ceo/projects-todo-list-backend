@@ -20,7 +20,7 @@ export default class ProjectController {
      * @param {object} req
      * @param {object} res
      * @returns {object} newSavedProject
-     * @description sends response containing the saved project to user
+     * @description sends response containing the saved project
      */
     saveProject = async (req, res) => {
         const projectData = req.body;
@@ -41,13 +41,27 @@ export default class ProjectController {
             .getAndCountAllIncludeAssociation({ name }, offset, gottenLimit);
 
         if (foundProjects.count !== 0) {
-            console.log({ foundProjects: foundProjects.rows });
             const { rows } = foundProjects;
-            if (rows.length !== 0) {
-                sendResponse(res, OK, RESOURCE_RETRIEVED, rows);
-            } else {
-                sendResponse(res, NOT_FOUND, RESOURCE_NOT_FOUND);
-            }
+            sendResponse(res, OK, RESOURCE_RETRIEVED, rows);
+        } else {
+            sendResponse(res, NOT_FOUND, RESOURCE_NOT_FOUND);
+        }
+    }
+
+    /**
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} sends response to user
+     * @description it sends found projects
+     */
+     getProjectById = async (req, res) => {
+        const { id } = req.params;
+        const foundProjects = await this.projectService
+            .getAndCountAllIncludeAssociation({ id });
+
+        if (foundProjects.count !== 0) {
+            const { rows } = foundProjects;
+            sendResponse(res, OK, RESOURCE_RETRIEVED, rows);
         } else {
             sendResponse(res, NOT_FOUND, RESOURCE_NOT_FOUND);
         }

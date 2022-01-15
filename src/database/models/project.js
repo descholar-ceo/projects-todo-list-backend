@@ -6,8 +6,12 @@ module.exports = (sequelize, DataTypes) => {
     paranoid: true,
     timestamps: true
   });
-  Project.associate = function (models) {
-    // associations can be defined here
+  Project.associate = (models) => {
+    Project.hasMany(models.Todo, {
+      foreignKey: 'projectId',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
+    });
   };
   return Project;
 };
