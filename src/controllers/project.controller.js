@@ -35,11 +35,11 @@ export default class ProjectController {
      * @description it sends found projects
      */
      getProjects = async (req, res) => {
-        const { name, page, limit } = req.query;
-        const { offset, gottenLimit } = getOffsetAndLimit(page, limit);
-        const foundProjects = await this.projectService
-            .getAndCountAllIncludeAssociation({ name }, offset, gottenLimit);
-
+         const { name, page, limit } = req.query;
+         const { offset, gottenLimit } = getOffsetAndLimit(page, limit);
+         const foundProjects = await this.projectService
+         .getAndCountAllIncludeAssociation({ name }, offset, gottenLimit);
+         
         if (foundProjects.count !== 0) {
             const { rows } = foundProjects;
             sendResponse(res, OK, RESOURCE_RETRIEVED, rows);

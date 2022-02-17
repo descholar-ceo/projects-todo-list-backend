@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Make projects todo list convenient and easy to track.",
   "main": "./src/index.js",
+  "engines": {
+    "node": "12.22.0",
+    "npm": "6.14.11"
+  },
   "scripts": {
     "lint": "eslint ./src",
     "start": "babel-node ./src/index.js",
@@ -14,8 +18,8 @@
     "seed": "npx sequelize-cli db:seed:all",
     "undo-seed": "npx sequelize-cli db:seed:undo",
     "test": "nyc mocha --require @babel/register ./tests/**/*.js  --timeout 30000 --exit",
-    "pretest": "npm run drop-db && npm run create-db && npm run migrations && npm run seed ",
-    "posttest": "npm run undo-seed && npm run undo",
+    "pretest": "npm run drop-db && npm run create-db && npm run migrations",
+    "posttest": "npm run undo",
     "coverage": "nyc report --reporter=text-lcov"
   },
   "author": "Mugirase Emmanuel",
@@ -37,22 +41,22 @@
     "sequelize-test-helpers": "^1.2.2",
     "sino": "0.0.3",
     "sinon": "^12.0.1",
-    "swagger-ui-express": "^4.1.4"
-  },
-  "devDependencies": {
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "babel-plugin-istanbul": "^6.0.0",
     "@babel/cli": "^7.8.4",
     "@babel/compat-data": "^7.9.0",
     "@babel/core": "^7.8.6",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.5",
     "@babel/register": "^7.9.0",
     "@babel/runtime": "^7.9.2",
+    "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
     "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "babel-plugin-add-module-exports": "^1.0.2",
-    "babel-plugin-istanbul": "^6.0.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.20.2",
